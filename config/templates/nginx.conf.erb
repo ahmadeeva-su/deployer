@@ -1,0 +1,64 @@
+upstream <%= application %>_backend_<%= rails_env %> {
+  <% app_servers.each do |server| %>
+    server <%= server.options[:private_ip] %>:<%= server.options[:unicorn][:port] %> fail_timeout=0;
+  <% end %>
+}
+
+server {
+  listen <%= respond_to?(:public_ip) ? "#{ public_ip }:80" : "80" %>;
+
+  server_name <%= server.options[:domain] %>;
+
+  root <%= current_path %>/public;
+
+  access_log off;
+
+  # GZIP compression
+
+  gzip            on;
+  gzip_min_length 1000;
+  gzip_comp_level 3;
+  gzip_types      text/plain text/css text/javascript application/x-javascript application/json;
+  gzip_proxied    any;
+  gzip_vary       on;
+
+  # Performance & connectivity optimizations
+
+  tcp_nodelay on;
+  keepalive_timeout 600s;
+
+  # Ignored URLs
+  location ~ null { return 404; }
+  location ~ google-analytics\.com/ga\.js { return 404; }
+  location ~ avg_ls_dom\.js { return 404; }
+
+  location / {
+    error_page 405 = /system/maintenance.html;
+
+    try_files $uri /system/maintenance.html @backend;
+  }
+
+  location ~* /(assets|system) {
+    expires 1y;
+    add_header Cache-Control public;
+
+    gzip_static on;
+
+    open_file_cache          max=1000 inactive=600s;
+    open_file_cache_valid    600s;
+    open_file_cache_errors   on;
+
+    try_files $uri =404;
+  }
+
+  location @backend {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_redirect off;
+
+    proxy_pass http://<%= application %>_backend_<%= rails_env %>;
+  }
+}

@@ -54,15 +54,15 @@ class Director < Sinatra::Base
 
 
   def set_restore_flag
-    `echo 1 > #{ settings.shared_path }/restore.flag`
+    `touch #{ settings.shared_path }/restore.flag`
   end
 
   def set_migrate_flag
-    `echo 1 > #{ settings.shared_path }/migrate.flag`
+    `touch #{ settings.shared_path }/migrate.flag`
   end
 
   def set_deploy_flag
-    `echo 1 > #{ settings.shared_path }/deploy.flag`
+    `touch #{ settings.shared_path }/deploy.flag`
   end
 
   def store_push_data

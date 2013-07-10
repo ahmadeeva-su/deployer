@@ -1,8 +1,7 @@
-workers     = [ENV['UNICORN_WORKERS'].to_i, 1].max
-host        = ENV['UNICORN_HOST'] || '0.0.0.0'
-port        = [ENV['UNICORN_PORT'].to_i, 8080].max
-app_folder  = ENV['UNICORN_APP_FOLDER'] || File.expand_path('../..', __FILE__)
-
+workers     = 1
+host        = "176.9.24.2"
+port        = 8082
+app_folder  = File.expand_path('../..', __FILE__)
 
 pid File.join(app_folder, "tmp/unicorn.pid")
 
