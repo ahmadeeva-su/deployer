@@ -52,7 +52,7 @@ class Director < Sinatra::Base
   end
 
 
-  get '/hook' do
+  post '/hook' do
     puts "\nHook: #{ params[:payload] }\n"
 
     @push_data = JSON.parse params[:payload]
