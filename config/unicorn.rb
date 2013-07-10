@@ -36,7 +36,7 @@ before_fork do |server, worker|
   #
   # Using this method we get 0 downtime deploys.
 
-  old_pid = Rails.root.join('tmp/unicorn.pid.oldbin')
+  old_pid = File.join(app_folder, "tmp/unicorn.pid.oldbin")
 
   if File.exists?(old_pid) && server.pid != old_pid
     begin

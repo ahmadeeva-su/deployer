@@ -18,13 +18,13 @@ server "176.9.24.2", :web, :app, :background,
   :private_ip => "176.9.24.2",
   :domain     => "deployer.alchemad.com",
   :unicorn    => {
-    :port     => 8082,
+    :port     => 8083,
     :workers  => 1
   }
 
 set :deploy_to,    "/home/#{ user}/#{ application }"
-set :unicorn_conf, "/#{ current_path }/config/unicorn.rb"
-set :unicorn_pid,  "/#{ current_path }/tmp/unicorn.pid"
+set :unicorn_conf, "#{ current_path }/config/unicorn.rb"
+set :unicorn_pid,  "#{ current_path }/tmp/unicorn.pid"
 
 set :default_environment, {
   'PATH' => "/home/#{ user }/.rbenv/shims:/home/#{ user }/.rbenv/bin:$PATH"
