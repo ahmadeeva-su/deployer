@@ -15,8 +15,6 @@ shared_path:  /home/deployer/deployer/shared
 
 # deployed project data
 deploy_path:  /home/witchcraftstaging/witchcraftstaging/current
-deploy_home:  /home/witchcraftstaging
-deploy_host:  witchcraft2
 deploy_env:   staging
 
 db:

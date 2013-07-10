@@ -1,9 +1,9 @@
 RAILS_ENV=<%= rails_env %>
 PATH=<%= "/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin" %>:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH
-HOME=<%= settings.deploy_home %>
-HOST=<%= settings.deploy_host %>
+HOME=/home/witchcraftstaging
+HOST=witchcraft2
 
 # Deployment
-*/10 * * * *     /usr/bin/keychain --quiet --clear $HOME/.ssh/id_rsa2 && . $HOME/.keychain/$HOST-sh && cd <%= current_path %> && rake app:deployment --trace >> <%= shared_path %>/log/deployment.log 2>&1
+*/10 * * * *     /usr/bin/keychain --quiet --clear $HOME/.ssh/id_rsa2 && . $HOME/.keychain/$HOST-sh && cd <%= current_path %> && bundle exec rake app:deployment --trace >> <%= shared_path %>/log/deployment.log 2>&1
 
 # Must have a line break before end of file. God damn you crontab!

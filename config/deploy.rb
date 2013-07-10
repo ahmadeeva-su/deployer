@@ -13,7 +13,7 @@ set :user, "deployer"
 
 set :public_ip, '176.9.24.2'
 
-server "176.9.24.2", :web, :app, :background,
+server "176.9.24.2", :web, :app, :background, :balancer,
   :primary    => true,
   :private_ip => "176.9.24.2",
   :domain     => "deployer.alchemad.com",
@@ -58,7 +58,7 @@ namespace :deploy do
     desc "Install cron jobs"
     task :cron, :roles => :background do
       template = ERB.new(
-        File.read(File.expand_path("../deploy/templates/crontab.erb", __FILE__))
+        File.read(File.expand_path("../templates/crontab.erb", __FILE__))
       )
 
       config = template.result(binding)
@@ -71,7 +71,7 @@ namespace :deploy do
     desc "Updates nginx configuration for balancer"
     task :nginx, :roles => :balancer do
       template = ERB.new(
-        File.read(File.expand_path("../deploy/templates/nginx.conf.erb", __FILE__))
+        File.read(File.expand_path("../templates/nginx.conf.erb", __FILE__))
       )
 
       app_servers = top.find_servers(:roles => :app)

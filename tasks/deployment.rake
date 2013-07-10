@@ -27,9 +27,9 @@ namespace :app do
     puts `cd #{ settings.deploy_path }; git pull origin master`
 
     log = if migrate || restore
-      `cd #{ settings.deploy_path }; git status` # `cd #{ settings.deploy_path }; cap staging deploy:migrations`
+      `cd #{ settings.deploy_path }; cap staging deploy:migrations`
     else
-      `cd #{ settings.deploy_path }; git status` # `cd #{ settings.deploy_path }; cap staging deploy`
+      `cd #{ settings.deploy_path }; cap staging deploy`
     end
 
     File.delete("#{ settings.shared_path }/restore.flag") if restore
