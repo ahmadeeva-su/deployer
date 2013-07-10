@@ -1,6 +1,6 @@
 workers     = 1
 host        = "176.9.24.2"
-port        = 8082
+port        = 8083
 app_folder  = File.expand_path('../..', __FILE__)
 
 pid File.join(app_folder, "tmp/unicorn.pid")
