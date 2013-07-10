@@ -53,6 +53,8 @@ class Director < Sinatra::Base
 
 
   get '/hook' do
+    puts "\nHook: #{ params[:payload] }\n"
+
     @push_data = JSON.parse params[:payload]
 
     if @push_data['ref'] == 'refs/heads/master'
