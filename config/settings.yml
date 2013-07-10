@@ -1,0 +1,25 @@
+# application
+logging: true
+dump_errors: true
+raise_errors: true
+show_exceptions: true
+method_override: false
+sessions: true
+session_secret: '4f8487f7466a00f7cbe1edba39752ff707e4d1ec30397ff82b3add3cd6bca1214a6517d400098d24a28a5cf34a41da879d0cdc99555ed932049143ac68ba7804'
+
+# deployer data:
+data_file:    /home/deployer/deployer/shared/deploy_data.yml
+mysql_backup: /home/deployer/deployer/shared/dump.sql
+redis_backup: /home/deployer/deployer/shared/redis.json
+shared_path:  /home/deployer/deployer/shared
+
+# deployed project data
+deploy_path:  /home/witchcraftstaging/witchcraftstaging/current
+deploy_home:  /home/witchcraftstaging
+deploy_host:  witchcraft2
+deploy_env:   staging
+
+db:
+  database: witchcraft_staging
+  username: witchcraft_st
+  password: LmaywpcUeI2f6u

@@ -1,0 +1,55 @@
+<h3>Last commit:</h3>
+
+<code>
+  <ul>
+    <% @deploy_data['head_commit'].each do |key, value| %>
+      <li>
+        <span class='key'><%= key %>:</span>
+        <span class='value'><%= value %></span>
+      </li>
+     <% end %>
+  </ul>
+</code>
+
+<h3>Last deploy:</h3>
+
+<code>
+  <ul>
+    <% @deploy_data['deploy'].each do |key, value| %>
+      <li>
+        <span class='key'><%= key %>:</span>
+        <span class='value'><%= value %></span>
+      </li>
+     <% end %>
+  </ul>
+</code>
+
+<div class='buttons'>
+  <% unless @flags['restore'] %>
+    <a class='restore'>Restore DB</a>
+  <% end %>
+  
+  <% unless @flags['deploy'] %>
+    <a class='deploy'>Deploy</a>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function (){
+    $('.buttons .restore').click(function(e){
+      e.preventDefault();
+
+      $.post('/restore', function(){
+        $('.buttons .restore').remove();
+      });
+    });
+
+    $('.buttons .deploy').click(function(e){
+      e.preventDefault();
+
+      $.post('/deploy', function(){
+        $('.buttons .deploy').remove();
+      });
+    });    
+  });
+</script>

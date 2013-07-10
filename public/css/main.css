@@ -1,0 +1,38 @@
+* {
+  zoom: 1;
+}
+
+html, body {
+  margin: 0 auto;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: block;
+}
+
+li {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+code span.key {
+  display: inline-block;
+  width: 80px;
+}
+
+.buttons a {
+  display: inline-block;
+  cursor: pointer;
+  margin: 20px 10px;
+  color: blue;
+  font-weight: bold;
+}
