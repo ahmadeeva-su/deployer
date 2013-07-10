@@ -24,7 +24,7 @@ server "176.9.24.2", :web, :app, :background,
 
 set :deploy_to,    "/home/#{ user}/#{ application }"
 set :unicorn_conf, "#{ current_path }/config/unicorn.rb"
-set :unicorn_pid,  "#{ current_path }/tmp/unicorn.pid"
+set :unicorn_pid,  "#{ shared_path }/pids/unicorn.pid"
 
 set :default_environment, {
   'PATH' => "/home/#{ user }/.rbenv/shims:/home/#{ user }/.rbenv/bin:$PATH"

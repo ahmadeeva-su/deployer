@@ -3,7 +3,7 @@ host        = "176.9.24.2"
 port        = 8083
 app_folder  = File.expand_path('../..', __FILE__)
 
-pid File.join(app_folder, "tmp/unicorn.pid")
+pid File.join(app_folder, "tmp/pids/unicorn.pid")
 
 working_directory app_folder
 
@@ -36,7 +36,7 @@ before_fork do |server, worker|
   #
   # Using this method we get 0 downtime deploys.
 
-  old_pid = File.join(app_folder, "tmp/unicorn.pid.oldbin")
+  old_pid = File.join(app_folder, "tmp/pids/unicorn.pid.oldbin")
 
   if File.exists?(old_pid) && server.pid != old_pid
     begin
