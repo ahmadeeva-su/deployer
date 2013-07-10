@@ -2,11 +2,23 @@ require 'yaml'
 require 'json'
 
 class Director < Sinatra::Base
-  use Rack::Auth::Basic, "Restricted Area" do |username, password|
-    username == 'admin' and password == 'd3@d60a_214'
+  helpers do
+    def protected!
+      return if authorized?
+      headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+      halt 401, "Not authorized\n"
+    end
+
+    def authorized?
+      @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+      @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'd3@d60a_214']
+    end
   end
 
+
   get '/' do
+    protected!
+
     @deploy_data = YAML::load_file(settings.data_file).tap do |data|
       data['head_commit']['time'] = Time.parse data['head_commit']['time']
       data['deploy']['time']      = Time.parse data['deploy']['time']
@@ -22,6 +34,24 @@ class Director < Sinatra::Base
   end
 
 
+  post '/restore' do
+    protected!
+
+    set_restore_flag
+
+    'OK'
+  end
+
+
+  post '/deploy' do
+    protected!
+
+    set_deploy_flag
+
+    'OK'
+  end
+
+
   get '/hook' do
     @push_data = JSON.parse params[:payload]
 
@@ -34,20 +64,6 @@ class Director < Sinatra::Base
 
       store_push_data
     end
-
-    'OK'
-  end
-
-
-  post '/restore' do
-    set_restore_flag
-
-    'OK'
-  end
-
-
-  post '/deploy' do
-    set_deploy_flag
 
     'OK'
   end
